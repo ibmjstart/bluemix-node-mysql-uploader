@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Upload</title>
+  <link href="/stylesheets/bootstrap.css" rel="stylesheet">
+  <style>
+    .hero-unit {
+      margin-top: 60px;
+    }
+  </style>
+  <script src="/javascripts/bootstrap.min.js"></script>
+</head>
+<meta charset="utf-8">
+<body>
+  <div class="container">
+    <div class="hero-unit">
+      <div class="pull-right">    
+        <a href="/delete" class="btn btn-danger" title="Clear All">X</a>
+      </div>
+      <div class="text-center">
+        <h1><a href="/">MySQL Upload</a></h1>
+        <p>
+          <form action="/upload" method="POST" enctype="multipart/form-data">
+            <input type="file" name="file" /><br>
+            <input type="submit" class="btn" value="Upload">
+          </form>
+        </p>
+        {{#msg}}<div class="alert alert-info">{{msg}}</div>{{/msg}}
+      </div>
+    </div>
+    <div>
+      <table class="table">
+        {{#posts}}
+          <tr><td>{{text}}</td></tr>
+        {{/posts}}
+      </table>
+    </div>
+  </div>
+</body>
+</html>

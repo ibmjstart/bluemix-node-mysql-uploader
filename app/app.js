@@ -1,0 +1,179 @@
+/*-------------------------------------------------------------------*/
+/*                                                                   */
+/* Copyright IBM Corp. 2013 All Rights Reserved                      */
+/*                                                                   */
+/*-------------------------------------------------------------------*/
+/*                                                                   */
+/*        NOTICE TO USERS OF THE SOURCE CODE EXAMPLES                */
+/*                                                                   */
+/* The source code examples provided by IBM are only intended to     */
+/* assist in the development of a working software program.          */
+/*                                                                   */
+/* International Business Machines Corporation provides the source   */
+/* code examples, both individually and as one or more groups,       */
+/* "as is" without warranty of any kind, either expressed or         */
+/* implied, including, but not limited to the warranty of            */
+/* non-infringement and the implied warranties of merchantability    */
+/* and fitness for a particular purpose. The entire risk             */
+/* as to the quality and performance of the source code              */
+/* examples, both individually and as one or more groups, is with    */
+/* you. Should any part of the source code examples prove defective, */
+/* you (and not IBM or an authorized dealer) assume the entire cost  */
+/* of all necessary servicing, repair or correction.                 */
+/*                                                                   */
+/* IBM does not warrant that the contents of the source code         */
+/* examples, whether individually or as one or more groups, will     */
+/* meet your requirements or that the source code examples are       */
+/* error-free.                                                       */
+/*                                                                   */
+/* IBM may make improvements and/or changes in the source code       */
+/* examples at any time.                                             */
+/*                                                                   */
+/* Changes may be made periodically to the information in the        */
+/* source code examples; these changes may be reported, for the      */
+/* sample code included herein, in new editions of the examples.     */
+/*                                                                   */
+/* References in the source code examples to IBM products, programs, */
+/* or services do not imply that IBM intends to make these           */
+/* available in all countries in which IBM operates. Any reference   */
+/* to the IBM licensed program in the source code examples is not    */
+/* intended to state or imply that IBM's licensed program must be    */
+/* used. Any functionally equivalent program may be used.            */
+/*-------------------------------------------------------------------*/
+var http = require('http');
+var path = require('path');
+var express = require('express');
+var hogan = require('hogan-express');
+var mysql = require('mysql');
+var fs = require('fs');
+
+var port = (process.env.VCAP_APP_PORT || 3000);
+var host = (process.env.VCAP_APP_HOST || 'localhost');
+
+// all environments
+app = express();
+
+// check if application is being run in cloud environment
+if (process.env.VCAP_SERVICES) {
+  var services = JSON.parse(process.env.VCAP_SERVICES);
+
+  // look for a service starting with 'mysql'
+  for (var svcName in services) {
+    if (svcName.match(/^mysql/)) {
+      var mysqlCreds = services[svcName][0]['credentials'];
+      var db = mysql.createConnection({
+        host: mysqlCreds.host,
+        port: mysqlCreds.port,
+        user: mysqlCreds.user,
+        password: mysqlCreds.password,
+        database: mysqlCreds.name
+      });
+
+      createTable();
+    }
+  }
+}
+
+app.set('port', port);
+app.set('views', __dirname + '/views');
+app.set('view engine', 'html');
+app.set('env', 'development');
+app.engine('html', hogan);
+
+app.use(express.favicon(path.join(__dirname, 'public/images/favicon.ico')));
+app.use(express.logger());
+app.use(express.bodyParser());
+app.use(express.methodOverride());
+app.use(app.router);
+app.use(express.static(path.join(__dirname, 'public')));
+
+// development only
+if ('development' == app.get('env')) {
+  app.use(express.errorHandler());
+}
+
+// show table
+app.all('/', function (req, res) {
+  getPosts(function (err, posts) {
+    if (err) return res.json(err);
+    res.render('index.html', {posts: posts});
+  });
+});
+
+// upload file
+app.post('/upload', function (req, res) {
+  fs.readFile(req.files.file.path, 'utf8', function (err, data) {
+    if (err) return res.json(err);
+    // split file into array of non-empty Strings
+    var posts = data.split(/\r\n?|\n/).filter(isNotEmpty);
+    
+    // insert posts into mysql db
+    addPosts(posts, function (err, result) {
+      if (err) return res.json(err);
+      var msg = 'Added ' + result.affectedRows + ' rows.';
+
+      // display all posts
+      getPosts(function (err, posts) {
+        if (err) return res.json(err);
+        res.render('index.html', {posts: posts, msg: msg});
+      });
+    });
+  });
+});
+
+// clear table
+app.get('/delete', function (req, res) {
+  deletePosts(function (err, result) {
+    if (err) return res.json(err);
+    var msg = 'Deleted ' + result.affectedRows + ' rows.';
+    res.render('index.html', {msg: msg});
+  });
+});
+
+// start server
+http.createServer(app).listen(app.get('port'), function () {
+  console.log('Express server listening at http://' + host + ':' + port);
+});
+
+function createTable() {
+  var sql = 'CREATE TABLE IF NOT EXISTS posts ('
+            + 'id INTEGER PRIMARY KEY AUTO_INCREMENT,'
+            + 'text text'
+          + ');'; 
+  db.query(sql, function (err, result) {
+    if (err) console.log(err);
+  });
+}
+
+function getPosts(cb) {
+  var sql = 'SELECT text FROM posts';
+  db.query(sql, function (err, result) {
+    if (err) return cb(err);
+    cb(null, result);
+  });
+}
+
+function addPosts(posts, cb) {
+  var sql = 'INSERT INTO posts (text) VALUES ?';
+  
+  var values = posts.map(function (post) {
+    return [post];
+  });
+  
+  db.query(sql, [values], function (err, result) {
+    if (err) return cb(err);
+    cb(null, result);
+  });
+}
+
+function deletePosts(cb) {
+  var sql = 'DELETE FROM posts WHERE 1';
+  db.query(sql, function (err, result) {
+    if (err) return cb(err);
+    cb(null, result);
+  });
+}
+
+function isNotEmpty(str) {
+  return str && str.trim().length > 0;
+}

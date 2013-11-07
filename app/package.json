@@ -1,0 +1,16 @@
+{
+  "name": "twitter-search",
+  "version": "0.0.1",
+  "engines": {
+        "node":     "0.8.x"
+    },
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "express": "3.3.8",
+    "hogan-express": "*",
+    "request":"*",
+    "mysql": "*"
+  }
+}
