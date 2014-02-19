@@ -35,11 +35,24 @@ In the terminal, go to the directory of the app, and follow these steps.
 3. From the directory that houses the *app.js* file, push the app with a -c flag to start the node app and a --no-start option so we can bind our required service before starting our app.  Give your app a unique app name to be used as its path.
  * `$ cf push unique_app_name --no-manifest --no-start -c="node app.js"`
 4. Bind the MySQL service instance to the new app
- * `$ cf bind-service unique_app_name unique_service_name`
+ * `$ cf bind-service unique_app_name unique_service_instance_name`
 5. Start the app
  * `$ cf start unique_app_name`
 
-(Note that you must add the flag **-c="node app.js"** in order for the app to start correctly)
+*Note* : that you must add the flag **-c="node app.js"** in order for the app to start correctly.
+
+*Note* : Service instance names must be unique to your organization.
+
+As an example invocation... 
+
+ * `$ cf login -a https://api.ng.bluemix.net`
+ * `$ cf create-service mysql 100 mysql_NMU`
+ * `$ cf push nmu --no-manifest --no-start -c="node app.js"`
+ * `$ cf bind-service nmu mysql_NMU`
+ * `$ cf start nmu`
+
+*Note* : `-c="node app.js"` assumes you have not changed the filename for the Node.js app.
+
 
 ## Troubleshooting ##
 -   Sometimes your app may not work as expected and debugging needs to be done. The cf command line tool can be used to assist with debugging. With the cf you can check your app's logs by typing the command **cf logs [app_name]** 
