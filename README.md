@@ -18,9 +18,9 @@ Unless required by applicable law or agreed to in writing, software distributed 
 
 ## Prerequisites ##
 
-Before we begin, we first need to install the command line tool that will be used to upload and manage your application. Cloud Foundry uses a tool called [**cf**](https://github.com/cloudfoundry/cli).  Make sure you are using v6 of the cf cli by using
+Before we begin, we first need to install the command line tool that will be used to upload and manage your application. Cloud Foundry uses a tool called [**cf**](https://github.com/cloudfoundry/cli/releases).  If you've previously installed an older version of the cf tool, make sure you are now using v6 of the cf cli via
 
-	cf -v
+    cf -v
 	
 to see the version.
 
@@ -40,7 +40,7 @@ In the terminal, go to the directory of the app, and follow these steps.
    |------------|----------------------------------------------------|
    | *example:* | `$ cf create-service mysql 100 mysql_NMU`          |
 
-3. From the directory that houses the *app.js* file, push the app a --no-start option so we can bind our required service before starting our app, as well as a -c flag used by CloudFoundry to run your node app.  Give your app a unique app name to be used as its host; for example, this one would be https://nmu.ng.bluemix.net.
+3. From the directory that houses the *app.js* file, push the app with the --no-start option so we can bind our required service before starting.  Pass the -c flag to specify the start command that should be used by CloudFoundry to run your app.  Be sure to give your app a unique app name to be used as its host; for example, the example below would result in https://nmu.ng.bluemix.net.
 
    | *usage:*   | `$ cf push APP [--no-manifest] [--no-start] [-c COMMAND]`                |
    |------------|--------------------------------------------------------------------------|
