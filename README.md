@@ -58,8 +58,3 @@ In the terminal, go to the directory of the app, and follow these steps.
    |------------|----------------------------------|
    | *example:* | `$ cf start nmu`                 |
 
-
-
-## Troubleshooting ##
--   Sometimes your app may not work as expected and debugging needs to be done. The cf command line tool can be used to assist with debugging. With the cf you can check your app's logs by typing the command **cf logs [app_name]** 
--   From time to time your app may stop working, this means it could require a restart. To do this you must first stop it by typing **cf stop**. Once the app has been stopped, you can type **cf start** and if there are no other problems your app should start. 
