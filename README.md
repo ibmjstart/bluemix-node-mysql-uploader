@@ -32,7 +32,7 @@ In the terminal, go to the directory of the app, and follow these steps.
 
    | *usage:*   | `$ cf login [-a API_URL] [-o ORG] [-s SPACE]`|
    |------------|----------------------------------------------|
-   | *example:* | `$ cf login -a https://api.ng.bluemix.net` (https://api.ng.bluemix.net%60)   |
+   | *example:* | `$ cf login -a https://api.ng.bluemix.net`   |
 
 2. Create an instance of the postgreSQL service, giving it a unique name in the last arguement.
 
