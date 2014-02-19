@@ -18,38 +18,28 @@ Unless required by applicable law or agreed to in writing, software distributed 
 
 ## Prerequisites ##
 
-Before we begin, we first need to install the command line tool that will be used to upload and manage your application. Cloud Foundry uses a tool called [**cf**](https://github.com/cloudfoundry/cf). This tool is written in Ruby, so you must have Ruby installed. If you are running on Windows, you can install Ruby from [this](http://rubyinstaller.org/downloads/) website. 
+Before we begin, we first need to install the command line tool that will be used to upload and manage your application. Cloud Foundry uses a tool called [**cf**](https://github.com/cloudfoundry/cli).  Make sure you are using v6 of the cf cli by using
 
-For Linux systems, consult your documentation for how to install the **ruby** package - for Ubuntu the command:
+	cf -v
+	
+to see the version.
 
-	apt-get install ruby 
+## Deploying the App and Binding the MySQL Service ##
 
-should work for you.
+In the terminal, go to the directory of the app, and follow these steps.
 
-Once Ruby is installed, cf can be installed by using the **gem install** command:
-        
-	gem install cf
+1. Login to Bluemix.
+ * `$ cf login -a https://api.ng.bluemix.net`
+2. Create an instance of the postgreSQL service, giving it a unique name in the last arguement.
+ * `$ cf create-service mysql 100 unique_service_instance_name`
+3. From the directory that houses the *app.js* file, push the app with a -c flag to start the node app and a --no-start option so we can bind our required service before starting our app.  Give your app a unique app name to be used as its path.
+ * `$ cf push unique_app_name --no-manifest --no-start -c="node app.js"`
+4. Bind the MySQL service instance to the new app
+ * `$ cf bind-service unique_app_name unique_service_name`
+5. Start the app
+ * `$ cf start unique_app_name`
 
-The source for this app is at GitHub so, for example, if you are using the command line you can clone the repository like this:
-
-	git clone https://github.com/ibmjstart/bluemix-node-mysql-upload.git
-
-## Deploying the App ##
-
-Now that you have included the Facebook keys and tokens, you are all set to deploy the app. In the terminal, go in the directory of the app. You can directly deploy/push the app using push command:
-
-	cf push --command="node app.js"
-
-(Note that you must add the flag **--command="node app.js"** in order for the app to start correctly)
-
-Just follow the instructions on the screen. You can select the default settings for deploying the app, i.e. for URL, memory reservations (512 Recommended), number of instances. You need to bind the MySQL Service to your application. 
-
-### Binding a Service to Your App ###
-
-For the app to function correctly, you must create the service instance and bind the service instance while deploying the app. The **cf push** command will ask, "Create services for application?" Answer yes, then you will be presented with a list of services. Choose MySQL from this list.
-
-After the application is deployed using **cf push**, you can check the status of the app using the following command: **cf apps**. If the status is RUNNING, you can hit the URL in the browser and see the application is running.
-
+(Note that you must add the flag **-c="node app.js"** in order for the app to start correctly)
 
 ## Troubleshooting ##
 -   Sometimes your app may not work as expected and debugging needs to be done. The cf command line tool can be used to assist with debugging. With the cf you can check your app's logs by typing the command **cf logs [app_name]** 
