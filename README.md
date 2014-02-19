@@ -29,27 +29,35 @@ to see the version.
 In the terminal, go to the directory of the app, and follow these steps.
 
 1. Login to Bluemix.
- * `$ cf login -a https://api.ng.bluemix.net`
+
+   | *usage:*   | `$ cf login [-a API_URL] [-o ORG] [-s SPACE]`|
+   |------------|----------------------------------------------|
+   | *example:* | `$ cf login -a https://api.ng.bluemix.net` (https://api.ng.bluemix.net%60)   |
+
 2. Create an instance of the postgreSQL service, giving it a unique name in the last arguement.
- * `$ cf create-service mysql 100 unique_service_instance_name`
+
+   | *usage:*   | `$ cf create-service SERVICE PLAN SERVICE_INSTANCE`|
+   |------------|----------------------------------------------------|
+   | *example:* | `$ cf create-service mysql 100 mysql_NMU`          |
+
 3. From the directory that houses the *app.js* file, push the app with a -c flag to start the node app and a --no-start option so we can bind our required service before starting our app.  Give your app a unique app name to be used as its path.
- * `$ cf push unique_app_name --no-manifest --no-start -c="node app.js"`
+
+   | *usage:*   | `$ cf push APP [--no-manifest] [--no-start] [-c COMMAND]`                |
+   |------------|--------------------------------------------------------------------------|
+   | *example:* | `$ cf push nmu --no-manifest --no-start -c="node app.js"`                |
+
 4. Bind the MySQL service instance to the new app
- * `$ cf bind-service unique_app_name unique_service_instance_name`
+
+   | *usage:*   | `$ cf bind-service APP SERVICE_INSTANCE`|
+   |------------|-----------------------------------------|
+   | *example:* | `$ cf bind-service nmu mysql_NMU`       |
+
 5. Start the app
- * `$ cf start unique_app_name`
 
-*Note* : that you must add the flag **-c="node app.js"** in order for the app to start correctly.
+   | *usage:*   | `$ cf start APP`                 |
+   |------------|----------------------------------|
+   | *example:* | `$ cf start nmu`                 |
 
-*Note* : Service instance names must be unique to your organization.
-
-As an example invocation... 
-
- * `$ cf login -a https://api.ng.bluemix.net`
- * `$ cf create-service mysql 100 mysql_NMU`
- * `$ cf push nmu --no-manifest --no-start -c="node app.js"`
- * `$ cf bind-service nmu mysql_NMU`
- * `$ cf start nmu`
 
 *Note* : `-c="node app.js"` assumes you have not changed the filename for the Node.js app.
 
