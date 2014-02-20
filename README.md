@@ -18,13 +18,34 @@ Unless required by applicable law or agreed to in writing, software distributed 
 
 ## Prerequisites ##
 
-Before we begin, we first need to install the command line tool that will be used to upload and manage your application. Cloud Foundry uses a tool called [**cf**](https://github.com/cloudfoundry/cli/releases).  If you've previously installed an older version of the cf tool, make sure you are now using v6 of the cf cli via
+Before we begin, we first need to install the [**cf**](https://github.com/cloudfoundry/cli/releases) command line tool that will be used to upload and manage your application. If you've previously installed an older version of the cf tool, make sure you are now using v6 of cf by passing it the -v flag:
 
     cf -v
-	
-to see the version.
 
 ## Deploying the App and Binding the MySQL Service ##
+### Method: IBM JazzHub ###
+1. Browse to the JazzHub project repository located [here](http://example.com).  
+2. Click on "Fork".  This will provide you with a personal copy of the code within your JazzHub project space.
+
+  ![image](images/forkProject.png)
+
+3. Located in the base of the project, rename **manifest.yml.v5** to **manifest.yml**
+
+  ![image](images/RenameManifest.png)
+
+4. Next, click on "Deploy".  This will use information within the **manifest.yml** to deploy the sample application directly into the codename: BlueMix platform.
+
+  ![image](images/Deploy.png)
+
+  You may continue to deploy changes to your BlueMix application directly from JazzHub using the "Deploy" and "Deploy As" buttons.
+
+5. Next, click on the Root Project Name and scroll to the **Manual Deployment Information** section.
+
+  ![image](images/Manage.png)
+
+  You can check the status of the app using this section. If a green filled circle is visible, you may click the Application Name shown within the section and interact with the running application.  However, if a red filled circle is displayed, you may click **Manage** and directly interact with the BlueMix User interface for further investigation and debugging. 
+
+### Method: Command-Line ###
 
 In the terminal, go to the directory of the app, and follow these steps.
 
