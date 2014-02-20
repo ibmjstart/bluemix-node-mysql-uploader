@@ -47,22 +47,6 @@ Before we begin, we first need to install the [**cf**](https://github.com/cloudf
 #### Steps ####
 In the terminal, go to the directory of the app, and follow these steps.
 
-0. Test
-   <table>
-     <thead>
-          <tr>
-               <th><em>usage:</em></th>
-               <th><code>$ cf login [-a API_URL] [-o ORG] [-s SPACE]</code></th>
-          </tr>
-     </thead>
-     <tbody>
-          <tr>
-               <td><em>example:</em></td>
-               <td><code>$ cf login -a https://api.ng.bluemix.net</code></td>
-          </tr>
-     </tbody>
-   </table>
-
 1. Login to Bluemix.
 
    | *usage:*   | `$ cf login [-a API_URL] [-o ORG] [-s SPACE]`|
