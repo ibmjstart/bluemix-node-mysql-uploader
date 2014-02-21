@@ -12,30 +12,8 @@ Simply upload a line-separated file of text (e.g. tweets), and it will add each 
 ## Deploying the App and Binding the MySQL Service ##
 Multiple methods exist for interacting with the BlueMix platform. Outlined below are two of those methods:
 
-1. [IBM JazzHub](#method-ibm-jazzhub)
-2. [Command-Line](#method-command-line) 
-
-### Method: IBM JazzHub ###
-1. Browse to the JazzHub project repository located [here](https://hub.jazz.net/project/jstart/MySQL%20Upload%20App%20(Node)/overview).  Click on **Edit Code** for the project.
-2. Click on "Fork".  This will provide you with a personal copy of the code within your JazzHub project space.
-
-  ![image](images/forkProject.png)
-
-3. Located in the **app** directory of the project, rename **manifest.yml.v5** to **manifest.yml**
-
-  ![image](images/RenameManifest.png)
-
-4. Next, click on "Deploy".  This will use information within the **manifest.yml** to deploy the sample application directly into the codename: BlueMix platform.
-
-  ![image](images/Deploy.png)
-
-  You may continue to deploy changes to your BlueMix application directly from JazzHub using the "Deploy" and "Deploy As" buttons.
-
-5. Next, click on the Root Project Name and scroll to the **Manual Deployment Information** section.
-
-  ![image](images/Manage.png)
-
-  You can check the status of the app using this section. If a green filled circle is visible, you may click the Application Name shown within the section and interact with the running application.  However, if a red filled circle is displayed, you may click **Manage** and directly interact with the BlueMix User interface for further investigation and debugging. 
+1. [Command-Line](#method-command-line) 
+2. [IBM JazzHub](#method-ibm-jazzhub)
 
 ### Method: Command-Line ###
 #### Prerequisites ####
@@ -76,6 +54,30 @@ In the terminal, go into the directory named **app**, and follow these steps.
    | *usage:*   | `$ cf start APP`                 |
    |------------|----------------------------------|
    | *example:* | `$ cf start nmu`                 |
+   
+
+### Method: IBM JazzHub ###
+1. Browse to the JazzHub project repository located [here](https://hub.jazz.net/project/jstart/MySQL%20Upload%20App%20(Node)/overview).  Click on **Edit Code** for the project.
+2. Click on "Fork".  This will provide you with a personal copy of the code within your JazzHub project space.
+
+  ![image](images/forkProject.png)
+
+3. Located in the **app** directory of the project, rename **manifest.yml.v5** to **manifest.yml**
+
+  ![image](images/RenameManifest.png)
+
+4. Next, click on "Deploy".  This will use information within the **manifest.yml** to deploy the sample application directly into the codename: BlueMix platform.
+
+  ![image](images/Deploy.png)
+
+  You may continue to deploy changes to your BlueMix application directly from JazzHub using the "Deploy" and "Deploy As" buttons.
+
+5. Next, click on the Root Project Name and scroll to the **Manual Deployment Information** section.
+
+  ![image](images/Manage.png)
+
+  You can check the status of the app using this section. If a green filled circle is visible, you may click the Application Name shown within the section and interact with the running application.  However, if a red filled circle is displayed, you may click **Manage** and directly interact with the BlueMix User interface for further investigation and debugging.
+
 
 ## License ##
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
