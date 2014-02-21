@@ -45,7 +45,7 @@ Before we begin, we first need to install the [**cf**](https://github.com/cloudf
     cf -v
 
 #### Steps ####
-In the terminal, go to the directory of the app, and follow these steps.
+In the terminal, go into the directory named **app**, and follow these steps.
 
 1. Login to Bluemix.
 
