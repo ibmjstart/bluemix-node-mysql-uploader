@@ -37,11 +37,11 @@ In the terminal, go into the directory named **app**, and follow these steps.
    |------------|----------------------------------------------------|
    | *example:* | `$ cf create-service mysql 100 mysql_NMU`          |
 
-3. From the directory that houses the *app.js* file, push the app with the --no-start option so we can bind our required service before starting.  Pass the -c flag to specify the start command that should be used by CloudFoundry to run your app.  Be sure to give your app a unique app name to be used as its host; for example, the example below would result in https://nmu.ng.bluemix.net.
+3. From the directory that houses the *app.js* file, push the app with the --no-start option so we can bind our required service before starting.  Pass the -c flag to specify the start command that should be used by CloudFoundry to run your app.  Be sure to give your app a unique app name to be used for its hostname; for instance the example below would result in http://myupload-<username>.ng.bluemix.net.
 
    | *usage:*   | `$ cf push APP [--no-manifest] [--no-start] [-c COMMAND]`                |
    |------------|--------------------------------------------------------------------------|
-   | *example:* | `$ cf push nmu --no-manifest --no-start -c "node app.js"`                |
+   | *example:* | `$ cf push myupload-<username> --no-manifest --no-start -c "node app.js"`                |
 
 4. Bind the MySQL service instance to the new app
 
