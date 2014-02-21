@@ -16,7 +16,7 @@ Multiple methods exist for interacting with the BlueMix platform. Outlined below
 2. [Command-Line](#method-command-line) 
 
 ### Method: IBM JazzHub ###
-1. Browse to the JazzHub project repository located [here](http://example.com).  
+1. Browse to the JazzHub project repository located [here](https://hub.jazz.net/project/jstart/MySQL%20Upload%20App%20(Node)/overview).  
 2. Click on "Fork".  This will provide you with a personal copy of the code within your JazzHub project space.
 
   ![image](images/forkProject.png)
