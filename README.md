@@ -47,13 +47,13 @@ In the terminal, go into the directory named **app**, and follow these steps.
 
    | *usage:*   | `$ cf bind-service APP SERVICE_INSTANCE`|
    |------------|-----------------------------------------|
-   | *example:* | `$ cf bind-service nmu mysql_NMU`       |
+   | *example:* | `$ cf bind-service myupload-<username> mysql_NMU`       |
 
 5. Start the app
 
    | *usage:*   | `$ cf start APP`                 |
    |------------|----------------------------------|
-   | *example:* | `$ cf start nmu`                 |
+   | *example:* | `$ cf start myupload-<username>`                 |
    
 
 ### Method: IBM JazzHub ###
