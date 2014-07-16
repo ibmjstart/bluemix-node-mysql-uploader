@@ -1,5 +1,5 @@
 /* Copyright IBM Corp. 2013 All Rights Reserved                      */
-/* jslint node:true*/
+/*eshint-env node */
 
 var http = require('http');
 var path = require('path');
