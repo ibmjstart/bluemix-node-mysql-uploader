@@ -9,7 +9,7 @@ applications: #Reference http://docs.cloudfoundry.com/docs/using/deploying-apps/
   path: . #Path to the application to be pushed
   command: node app.js #The command to use to start the application
   services:
-    mysql-node-upload: #Identifier for CompaniesTextAnalyticsService Bound Service instance
+    mysql-node-upload: #Identifier for MySQL Bound Service instance
       label: mysql
       provider: core
       version: '5.5'
