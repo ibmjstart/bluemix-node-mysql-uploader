@@ -57,11 +57,11 @@ In the terminal, go into the directory named **app**, and follow these steps.
 
   ![image](images/forkProject.png)
 
-3. Located in the **app** directory of the project, rename **manifest.yml.v5** to **manifest.yml**
+3. Login to [Bluemix](http://www.bluemix.net), click 'Add a Service', and click the ClearDB option. As shown in the image below, name your service mysql_node and click create.
 
-  ![image](images/RenameManifest.png)
+  ![image](images/CreateService.png)
 
-4. Next, click on "Deploy".  This will use information within the **manifest.yml** to deploy the sample application directly into the codename: BlueMix platform.
+4. Go back to JazzHub and select manifest.yml in the sidebar on the left. Next, click on "Deploy".  This will use information within the **manifest.yml** to deploy the sample application directly into the codename: BlueMix platform.
 
   ![image](images/Deploy.png)
 
