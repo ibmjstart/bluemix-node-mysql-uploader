@@ -20,12 +20,12 @@ if (process.env.VCAP_SERVICES) {
 
   // look for a service starting with 'mysql'
   for (var svcName in services) {
-    if (svcName.match(/^mysql/)) {
+    if (svcName.match(/^cleardb/)) {
       var mysqlCreds = services[svcName][0]['credentials'];
       var db = mysql.createConnection({
-        host: mysqlCreds.host,
+        host: mysqlCreds.hostname,
         port: mysqlCreds.port,
-        user: mysqlCreds.user,
+        user: mysqlCreds.username,
         password: mysqlCreds.password,
         database: mysqlCreds.name
       });

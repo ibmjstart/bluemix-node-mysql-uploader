@@ -31,29 +31,23 @@ In the terminal, go into the directory named **app**, and follow these steps.
    |------------|----------------------------------------------|
    | *example:* | `$ cf login -a https://api.ng.bluemix.net`   |
 
-2. Create an instance of the postgreSQL service, giving it a unique name in the last arguement.
+2. Create an instance of the ClearDB MySql service, giving it a unique name in the last argument.
 
-   | *usage:*   | `$ cf create-service SERVICE PLAN SERVICE_INSTANCE`|
+   | *usage:*   | `$ cf create-service SERVICE PLAN SERVICE_INSTANCE_NAME`|
+   |------------|---------------------------------------------------------|
+   | *example:* | `$ cf create-service cleardb spark mysql_node           |
+
+3. If you used a service instance name different than mysql_node, change the line of the `app/manifest.yml` file below "services:" to reflect that:
+   | *old:*     | - mysql_node                                       |
    |------------|----------------------------------------------------|
-   | *example:* | `$ cf create-service mysql 100 mysql_NMU`          |
+   | *new:*     | - SERVICE_INSTANCE_NAME                            |
 
-3. **From the directory that houses the _app.js_ file** (not from the root directory that contains this *README.md* file), push the app with the --no-start option so we can bind our required service before starting.  Pass the -c flag to specify the start command that should be used by CloudFoundry to run your app.  Be sure to give your app a unique app name to be used for its hostname; for instance the example below would result in http://myupload-<username>.ng.bluemix.net.
 
-   | *usage:*   | `$ cf push APP [--no-manifest] [--no-start] [-c COMMAND]`                |
-   |------------|--------------------------------------------------------------------------|
-   | *example:* | `$ cf push myupload-<username> --no-manifest --no-start -c "node app.js"`                |
+4. **From the directory that houses the _app.js_ file** (not from the root directory that contains this *README.md* file), push the app with the --no-start option so we can bind our required service before starting.  Pass the -c flag to specify the start command that should be used by CloudFoundry to run your app.  Be sure to give your app a unique app name to be used for its hostname; for instance the example below would result in http://myupload-<username>.ng.bluemix.net.
 
-4. Bind the MySQL service instance to the new app
-
-   | *usage:*   | `$ cf bind-service APP SERVICE_INSTANCE`|
-   |------------|-----------------------------------------|
-   | *example:* | `$ cf bind-service myupload-<username> mysql_NMU`       |
-
-5. Start the app
-
-   | *usage:*   | `$ cf start APP`                 |
-   |------------|----------------------------------|
-   | *example:* | `$ cf start myupload-<username>`                 |
+   | *usage:*   | `$ cf push |
+   |------------|------------|
+   | *example:* | `$ cf push |
    
 
 ### Method: IBM JazzHub ###
