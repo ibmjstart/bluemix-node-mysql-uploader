@@ -33,11 +33,12 @@ In the terminal, go into the directory named **app**, and follow these steps.
 
 2. Create an instance of the ClearDB MySql service, giving it a unique name in the last argument.
 
-   | *usage:*   | `$ cf create-service SERVICE PLAN SERVICE_INSTANCE_NAME`|
-   |------------|---------------------------------------------------------|
-   | *example:* | `$ cf create-service cleardb spark mysql_node           |
+   | *usage:*   | `$ cf create-service SERVICE PLAN SERVICE_INSTANCE_NAME` |
+   |------------|----------------------------------------------------------|
+   | *example:* | `$ cf create-service cleardb spark mysql_node            |
 
 3. If you used a service instance name different than mysql_node, change the line of the `app/manifest.yml` file below "services:" to reflect that:
+
    | *old:*     | - mysql_node                                       |
    |------------|----------------------------------------------------|
    | *new:*     | - SERVICE_INSTANCE_NAME                            |
