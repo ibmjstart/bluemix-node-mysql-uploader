@@ -22,18 +22,33 @@ if (process.env.VCAP_SERVICES) {
   for (var svcName in services) {
     if (svcName.match(/^cleardb/)) {
       var mysqlCreds = services[svcName][0]['credentials'];
-      var db = mysql.createConnection({
+      var dbCreds = {
         host: mysqlCreds.hostname,
         port: mysqlCreds.port,
         user: mysqlCreds.username,
         password: mysqlCreds.password,
         database: mysqlCreds.name
-      });
-
-      createTable();
+      };
+      break;
     }
   }
 }
+
+var db;
+function handleDisconnect() {
+  db = mysql.createConnection(dbCreds);
+  createTable();                                 
+                                  
+  db.on('error', function(err) {
+    console.log('db error', err);
+    if(err.code === 'PROTOCOL_CONNECTION_LOST') { 
+      handleDisconnect();                        
+    } else {                                      
+      throw err;                                
+    }
+  });
+}
+handleDisconnect();
 
 app.set('port', port);
 app.set('views', __dirname + '/views');
