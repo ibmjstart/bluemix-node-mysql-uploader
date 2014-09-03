@@ -39,12 +39,12 @@ In the terminal, go into the directory named **app**, and follow these steps.
 
 3. If you used a service instance name different than mysql_node, change the line of the `app/manifest.yml` file below "services:" to reflect that:
 
-   | *old:*     | - mysql_node                                       |
-   |------------|----------------------------------------------------|
-   | *new:*     | - SERVICE_INSTANCE_NAME                            |
+   | *old:*     | `- mysql_node`                                       |
+   |------------|------------------------------------------------------|
+   | *new:*     | `- YOUR_SERVICE_INSTANCE_NAME`                       |
 
 
-4. **From the directory that houses the _app.js_ file** (not from the root directory that contains this *README.md* file), push the app with the --no-start option so we can bind our required service before starting.  Pass the -c flag to specify the start command that should be used by CloudFoundry to run your app.  Be sure to give your app a unique app name to be used for its hostname; for instance the example below would result in http://myupload-<username>.ng.bluemix.net.
+4. **From the `app` directory that houses the _app.js_ file** (not from the root directory that contains this *README.md* file), push the app. Our manifest will generate a random host name for our application, but feel free to supply your own unique name.
 
    | *usage:*   | `$ cf push` |
    |------------|-------------|
