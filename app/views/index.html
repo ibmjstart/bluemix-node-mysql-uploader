@@ -1,16 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <meta charset="utf-8">
   <title>Upload</title>
   <link href="/stylesheets/bootstrap.css" rel="stylesheet">
-  <style>
-    .hero-unit {
-      margin-top: 60px;
-    }
-  </style>
+  <link href="/stylesheets/style.css" rel="stylesheet">
   <script src="/javascripts/bootstrap.min.js"></script>
 </head>
-<meta charset="utf-8">
 <body>
   <div class="container">
     <div class="hero-unit">
@@ -20,13 +16,11 @@
         </form>
       </div>
       <div class="text-center">
-        <h1><a href="/">MySQL Upload</a></h1>
-        <p>
-          <form action="/upload" method="POST" enctype="multipart/form-data">
-            <input type="file" name="file" /><br>
-            <input type="submit" class="btn" value="Upload">
-          </form>
-        </p>
+        <h1 class="title"><a href="/">MySQL Upload</a></h1>
+        <form action="/upload" method="POST" enctype="multipart/form-data">
+          <input type="file" name="file" /><br>
+          <input type="submit" class="btn" value="Upload">
+        </form>
         {{#msg}}<div class="alert alert-info">{{msg}}</div>{{/msg}}
       </div>
     </div>

@@ -6,3 +6,11 @@ body {
 a {
   color: #00B7FF;
 }
+
+.hero-unit {
+	margin-top: 60px;
+}
+
+.hero-unit .title {
+	margin-bottom: 20px;
+}
