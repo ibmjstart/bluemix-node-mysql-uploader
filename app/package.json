@@ -11,6 +11,7 @@
     "express": "3.3.8",
     "hogan-express": "*",
     "request":"*",
-    "mysql": "*"
+    "mysql": "*",
+    "connect-flash": "*"
   }
 }

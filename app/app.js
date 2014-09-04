@@ -6,6 +6,7 @@ var path = require('path');
 var express = require('express');
 var hogan = require('hogan-express');
 var mysql = require('mysql');
+var flash = require('connect-flash');
 var fs = require('fs');
 
 var port = (process.env.VCAP_APP_PORT || 3000);
@@ -49,6 +50,10 @@ app.use(express.favicon(path.join(__dirname, 'public/images/favicon.ico')));
 app.use(express.logger());
 app.use(express.bodyParser());
 app.use(express.methodOverride());
+// These secrets should be stored somewhere secure in a real-world application!
+app.use(express.cookieParser('Jdsk498sdRd'));
+app.use(express.cookieSession({secret: 'H573SDGAd234'}));
+app.use(flash());
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -61,7 +66,7 @@ if ('development' == app.get('env')) {
 app.all('/', function (req, res) {
   getPosts(function (err, posts) {
     if (err) return res.json(err);
-    res.render('index.html', {posts: posts});
+    res.render('index.html', {posts: posts, msg: req.flash('msg')});
   });
 });
 
@@ -76,12 +81,8 @@ app.post('/upload', function (req, res) {
     addPosts(posts, function (err, result) {
       if (err) return res.json(err);
       var msg = 'Added ' + result.affectedRows + ' rows.';
-
-      // display all posts
-      getPosts(function (err, posts) {
-        if (err) return res.json(err);
-        res.render('index.html', {posts: posts, msg: msg});
-      });
+      req.flash('msg', msg)
+      res.redirect('/');
     });
   });
 });
@@ -91,7 +92,8 @@ app.post('/delete', function (req, res) {
   deletePosts(function (err, result) {
     if (err) return res.json(err);
     var msg = 'Deleted ' + result.affectedRows + ' rows.';
-    res.render('index.html', {msg: msg});
+    req.flash('msg', msg)
+    res.redirect('/');
   });
 });
 
