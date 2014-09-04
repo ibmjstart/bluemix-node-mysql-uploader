@@ -87,7 +87,7 @@ app.post('/upload', function (req, res) {
 });
 
 // clear table
-app.get('/delete', function (req, res) {
+app.post('/delete', function (req, res) {
   deletePosts(function (err, result) {
     if (err) return res.json(err);
     var msg = 'Deleted ' + result.affectedRows + ' rows.';
