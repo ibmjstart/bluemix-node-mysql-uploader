@@ -14,6 +14,8 @@ var host = (process.env.VCAP_APP_HOST || 'localhost');
 // all environments
 var app = express();
 
+
+
 // check if application is being run in cloud environment
 if (process.env.VCAP_SERVICES) {
   var services = JSON.parse(process.env.VCAP_SERVICES);
@@ -22,33 +24,20 @@ if (process.env.VCAP_SERVICES) {
   for (var svcName in services) {
     if (svcName.match(/^cleardb/)) {
       var mysqlCreds = services[svcName][0]['credentials'];
-      var dbCreds = {
+      var dbOptions = {
         host: mysqlCreds.hostname,
         port: mysqlCreds.port,
         user: mysqlCreds.username,
         password: mysqlCreds.password,
-        database: mysqlCreds.name
+        database: mysqlCreds.name,
+        connectionLimit: 4             //current max connections for spark ClearDB plan
       };
       break;
     }
   }
 }
 
-var db;
-function handleDisconnect() {
-  db = mysql.createConnection(dbCreds);
-  createTable();                                 
-                                  
-  db.on('error', function(err) {
-    console.log('db error', err);
-    if(err.code === 'PROTOCOL_CONNECTION_LOST') { 
-      handleDisconnect();                        
-    } else {                                      
-      throw err;                                
-    }
-  });
-}
-handleDisconnect();
+var dbPool = mysql.createPool(dbOptions);
 
 app.set('port', port);
 app.set('views', __dirname + '/views');
@@ -116,14 +105,14 @@ function createTable() {
             + 'id INTEGER PRIMARY KEY AUTO_INCREMENT,'
             + 'text text'
           + ');'; 
-  db.query(sql, function (err, result) {
+  dbPool.query(sql, function (err, result) {
     if (err) console.log(err);
   });
 }
 
 function getPosts(cb) {
   var sql = 'SELECT text FROM posts';
-  db.query(sql, function (err, result) {
+  dbPool.query(sql, function (err, result) {
     if (err) return cb(err);
     cb(null, result);
   });
@@ -136,7 +125,7 @@ function addPosts(posts, cb) {
     return [post];
   });
   
-  db.query(sql, [values], function (err, result) {
+  dbPool.query(sql, [values], function (err, result) {
     if (err) return cb(err);
     cb(null, result);
   });
@@ -144,7 +133,7 @@ function addPosts(posts, cb) {
 
 function deletePosts(cb) {
   var sql = 'DELETE FROM posts WHERE 1';
-  db.query(sql, function (err, result) {
+  dbPool.query(sql, function (err, result) {
     if (err) return cb(err);
     cb(null, result);
   });
