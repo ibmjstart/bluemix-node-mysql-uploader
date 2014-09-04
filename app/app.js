@@ -52,7 +52,7 @@ app.use(express.bodyParser());
 app.use(express.methodOverride());
 // These secrets should be stored somewhere secure in a real-world application!
 app.use(express.cookieParser('Jdsk498sdRd'));
-app.use(express.cookieSession({secret: 'H573SDGAd234'}));
+app.use(express.session({ cookie: { maxAge: 60000 }}));
 app.use(flash());
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
