@@ -1,6 +1,6 @@
 ---
 declared-services:
-  mysql-node-upload:
+  mysql-database:
     type: mysql
     plan: '100'
     
@@ -8,8 +8,8 @@ applications: #Reference http://docs.cloudfoundry.com/docs/using/deploying-apps/
 - name: NodeMySQLUpload #Application Name. Unique to the user's Space
   memory: 256M #The maximum memory to allocate to each application instance
   instances: 1 #The number of instances of the application to start
-  path: . #Path to the application to be pushed
+  path: ./app/ #Path to the application to be pushed
   command: node app.js #The command to use to start the application
   services:
-  - mysql-node-upload #Identifier for MySQL Bound Service instance
+  - mysql-database #Identifier for MySQL Bound Service instance
 
