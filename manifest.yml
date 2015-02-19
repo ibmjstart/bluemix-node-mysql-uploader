@@ -1,7 +1,7 @@
 ---
 declared-services:
   mysql-database:
-    type: mysql
+    label: mysql
     plan: '100'
     
 applications: #Reference http://docs.cloudfoundry.com/docs/using/deploying-apps/manifest.html
