@@ -34,6 +34,17 @@ if (process.env.VCAP_SERVICES) {
     }
   }
 }
+else {
+  var db = mysql.createConnection({
+    host: 'localhost',
+    port: '3306',
+    user: 'bluemix',
+    password: 'bluemix',
+    database: 'bluemix-test'
+  });
+
+  createTable();
+}
 
 app.set('port', port);
 app.set('views', __dirname + '/views');
@@ -67,7 +78,7 @@ app.post('/upload', function (req, res) {
     if (err) return res.json(err);
     // split file into array of non-empty Strings
     var posts = data.split(/\r\n?|\n/).filter(isNotEmpty);
-    
+
     // insert posts into mysql db
     addPosts(posts, function (err, result) {
       if (err) return res.json(err);
@@ -100,7 +111,7 @@ function createTable() {
   var sql = 'CREATE TABLE IF NOT EXISTS posts ('
             + 'id INTEGER PRIMARY KEY AUTO_INCREMENT,'
             + 'text text'
-          + ');'; 
+          + ');';
   db.query(sql, function (err, result) {
     if (err) console.log(err);
   });
@@ -116,11 +127,11 @@ function getPosts(cb) {
 
 function addPosts(posts, cb) {
   var sql = 'INSERT INTO posts (text) VALUES ?';
-  
+
   var values = posts.map(function (post) {
     return [post];
   });
-  
+
   db.query(sql, [values], function (err, result) {
     if (err) return cb(err);
     cb(null, result);
