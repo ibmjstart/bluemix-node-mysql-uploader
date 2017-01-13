@@ -11,7 +11,11 @@ Give it a try! Click the button below to fork into IBM DevOps Services and deplo
 
 [![Deploy to Bluemix](https://bluemix.net/deploy/button.png)](https://bluemix.net/deploy?repository=https://github.com/ibmjstart/bluemix-node-mysql-uploader.git)
 
-Enjoy! (note, it may take minute or so for the app to start)
+Once on the page, log into your Bluemix account, deploy your app, and you should see a screen like this:
+
+![image](images/deployStartUploader.png)
+
+Click on the "View Your App" button, and enjoy! 
 
 ___
 
