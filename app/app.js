@@ -8,8 +8,8 @@ var hogan = require('hogan-express');
 var mysql = require('mysql');
 var fs = require('fs');
 
-var port = (process.env.VCAP_APP_PORT || 3000);
-var host = (process.env.VCAP_APP_HOST || 'localhost');
+var port = (process.env.PORT || 3000);
+var host = ('localhost');
 
 // all environments
 var app = express();
