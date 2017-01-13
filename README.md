@@ -28,21 +28,25 @@ Before we begin, we first need to install the [**cf**](https://github.com/cloudf
     cf -v
 
 #### Steps ####
-In the terminal, go into the root directory, and follow these steps.
+Open your terminal and follow these steps.
 
-1. Login to Bluemix.
+1. Clone this repo into a local project
+
+   `$ git clone https://github.com/ibmjstart/bluemix-node-mysql-uploader.git`
+
+2. Navigate into your project directry and login to Bluemix.
 
    | *usage:*   | `$ cf login [-a API_URL] [-o ORG] [-s SPACE]`|
    |------------|----------------------------------------------|
    | *example:* | `$ cf login -a https://api.ng.bluemix.net`   |
 
-2. Create an instance of the mySQL service, giving it the name "mysql-database" in the last arguement. Note, if a different name is desired, then the manifest.yml file needs to be changed accordingly.
+3. Create an instance of the mySQL service, giving it the name "mysql-database" in the last arguement. Note, if a different name is desired, then the manifest.yml file needs to be changed accordingly.
 
    | *usage:*   | `$ cf create-service SERVICE PLAN SERVICE_INSTANCE`|
    |------------|----------------------------------------------------|
    | *example:* | `$ cf create-service mysql 100 mysql-database`     |
 
-3. From the root directory that contains this *README.md* file, push the app like below.  Be sure to give your app a unique APP_NAME to be used for its hostname. For instance the example below would result in http://myupload-&lt;username&gt;.ng.bluemix.net.
+4. From the root directory that contains this *README.md* file, push the app like below.  Be sure to give your app a unique APP_NAME to be used for its hostname. For instance the example below would result in http://myupload-&lt;username&gt;.ng.bluemix.net.
 
    | *usage:*   | `$ cf push APP_NAME`                  |
    |------------|----------------------------------|
