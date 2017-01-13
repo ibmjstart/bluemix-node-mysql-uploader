@@ -9,7 +9,7 @@ var mysql = require('mysql');
 var fs = require('fs');
 
 var port = (process.env.PORT || 3000);
-var host = "localhost"; 
+var host = (0.0.0.0 || "localhost"); 
 
 // all environments
 var app = express();
