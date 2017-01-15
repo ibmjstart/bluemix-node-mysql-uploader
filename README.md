@@ -52,8 +52,19 @@ Open your terminal and follow these steps.
    |------------|----------------------------------|
    | *example:* | `$ cf push myupload-<username>`  |
 
-Congratulations, the app should be running on Bluemix.
-   
+5. Congrats! Your app is now running on Bluemix. You should have gotten a response similar to this on your command line: 
+
+        instances: 1/1
+        usage: 256M x 1 instances
+        urls: your_unique_project_name.mybluemix.net
+        last uploaded: Sun Jan 15 21:44:13 UTC 2017
+        stack: cflinuxfs2
+        buildpack: SDK for Node.js(TM) (ibm-node.js-0.10.48, buildpack-v3.9-20161128-1327)
+
+            state     since                    cpu    memory          disk          details
+        #0   running   2017-01-15 04:44:56 PM   0.0%   17.6M of 256M   57.8M of 1G
+
+Copy and past what follows after the "urls:" tag in your response to your browser to view your application!   
 ___
 
 ### License ###
